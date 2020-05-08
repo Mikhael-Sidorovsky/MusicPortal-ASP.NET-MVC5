@@ -1,0 +1,51 @@
+﻿@model MusicPortal.ViewModels.SongViewModel
+
+<div class="modal-content">
+    <div class="modal-header bg-dark">
+        <h5 class="modal-title text-white-50" id="dialogModalLabel">Delete song</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("DeleteSong", "PlayList", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <h3>Are you sure you want to delete this?</h3>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Artist)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Artist)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Genre)
+                </dd>
+
+            </dl>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Delete song" class="btn btn-info" />
+            </div>
+        }
+    </div>
+</div>

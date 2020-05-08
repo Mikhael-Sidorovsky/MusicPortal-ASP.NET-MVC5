@@ -1,0 +1,83 @@
+﻿@model MusicPortal.ViewModels.UserViewModel
+@{ 
+    string method;
+    if ((string)ViewBag.Sender == "delete")
+    {
+        method = "DeleteUser";
+    }
+    else
+    {
+        method = "RejectionRegisration";
+    }
+}
+
+<div class="modal-content">
+    <div class="modal-header bg-dark">
+        <h5 class="modal-title text-white-50" id="dialogModalLabel">Delete user</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h3>Are you sure you want to delete this?</h3>
+        <hr />
+        @using (Html.BeginForm(method, "Admin", new { id = Model.User.Id }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>User</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.User.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User.FirstName, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User.LastName, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User.Login, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.User.Login, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User.IsRegistered, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.User.IsRegistered, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bolder" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.Role, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" value="Delete user" class="btn btn-info" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

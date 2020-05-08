@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MusicPortal.Models.User>
+
+<table id="usersTable" class="table table-striped">
+    <tr>
+        <th>
+            @Html.Label("First Name")
+        </th>
+        <th>
+            @Html.Label("Last Name")
+        </th>
+        <th>
+            @Html.Label("Login")
+        </th>
+        <th>
+            @Html.Label("Email")
+        </th>
+        <th>
+            @Html.Label("Is registered")
+        </th>
+        <th>
+            @Html.Label("Role")
+        </th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsRegistered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        @Html.ActionLink("Edit", "EditUser", new { id = item.Id }, new { @class = "btn btn-info viewDialog" })
+                        @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new { @class = "btn btn-danger viewDialog" })
+                    </div>
+                </td>
+            </tr>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        $("#newRequestCount").text(@Session["NewRequestCount"]);
+    });
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#dialogContent').html(data);
+                $('#modDialog').modal('show');
+            });
+        });
+    });
+</script>

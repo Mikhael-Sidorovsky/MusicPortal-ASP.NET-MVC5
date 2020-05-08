@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MusicPortal.Models.Genre>
+
+
+<table class="table table-striped w-100">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="text-right">Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td class="text-right">
+            @Html.ActionLink("Edit", "EditGenre", new { id = item.Id }, new { @class = "btn btn-info viewDialog" })
+            @Html.ActionLink("Delete", "DeleteGenre", new { id = item.Id }, new { @class = "btn btn-danger viewDialog" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#dialogContent').html(data);
+                $('#modDialog').modal('show');
+            });
+        });
+    });
+</script>

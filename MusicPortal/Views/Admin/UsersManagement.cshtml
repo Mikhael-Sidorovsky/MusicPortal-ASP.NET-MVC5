@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MusicPortal.Models.User>
+
+@{
+    ViewBag.Title = "User management";
+}
+
+@if (Model.Count() > 0)
+{
+    Html.RenderPartial("_UsersManagementPartial", Model);
+}
+else
+{
+    <h2>No users to display.</h2>
+}
+
+<div class="modal fade" id="modDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="dialogContent" class="modal-dialog" role="document">
+
+    </div>
+</div>
+

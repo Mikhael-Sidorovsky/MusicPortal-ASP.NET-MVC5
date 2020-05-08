@@ -1,0 +1,84 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ajax")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success" style="font-size:24px">
+        <a class="navbar-brand" href="~/">
+            <img src="~/Images/logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active ml-5">
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item active ml-5">
+                    @Html.ActionLink("Playlist", "Index", "PlayList", null, new { @class = "nav-link" })
+                </li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item active ml-5">
+                        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item active ml-5">
+                        @Html.ActionLink("Registration", "Registration", "Account", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    if (Session["UserRole"] != null && (string)Session["UserRole"] == "Admin")
+                    {
+                        <li class="nav-item active ml-5">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle"
+                                        type="button" id="administration" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Administration
+                                </button>
+                                <div class="dropdown-menu bg-dark" aria-labelledby="administration">
+                                    <a href="/Admin/ConfirmUsersRegisration" class="nav-link">
+                                        Confirm request (<span id="newRequestCount">@Session["NewRequestCount"]</span>)
+                                    </a>
+                                    @Html.ActionLink("User's management", "UsersManagement", "Admin", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("Song's management", "SongsManagement", "Admin", null, new { @class = "nav-link" })
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    <li class="nav-item active ml-5">
+                        <a class="nav-link active font-italic">
+                            Hello, <span class="text-warning">@User.Identity.Name</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active ml-5">
+                        @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "nav-link" })
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content mt-5 pt-5">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - "Music portal" by Michael Sidorovskyi</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>

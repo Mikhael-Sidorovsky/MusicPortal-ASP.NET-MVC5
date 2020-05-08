@@ -1,0 +1,31 @@
+﻿@model MusicPortal.ViewModels.SongsManagementViewModel
+@{
+    ViewBag.Title = "Songs management";
+}
+<hr />
+<table class="table table-striped w-100">
+    <tr class="bg-info">
+        <th>
+            <div class="text-center text-white-50">Artists</div>
+        </th>
+        <th>
+            <div class="text-center text-white-50">Genres</div>
+        </th>
+    </tr>
+    <tr>
+        <td id="artistsData">
+            @{Html.RenderPartial("_ShowArtistsPartial", Model.Artists);}
+        </td>
+        <td id="genresData">
+            @{Html.RenderPartial("_ShowGenresPartial", Model.Genres);}
+        </td>
+    </tr>
+</table>
+
+<div class="modal fade" id="modDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="dialogContent" class="modal-dialog" role="document">
+
+    </div>
+</div>
+
+
